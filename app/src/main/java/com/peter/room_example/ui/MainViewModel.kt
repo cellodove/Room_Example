@@ -9,8 +9,4 @@ class MainViewModel : ViewModel() {
     }
 
     val liveFragmentStep = MutableLiveData(FragmentStep.EDIT)
-
-
-
-
 }

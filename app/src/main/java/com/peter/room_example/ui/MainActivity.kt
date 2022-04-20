@@ -6,7 +6,7 @@ import androidx.activity.viewModels
 import com.peter.room_example.R
 
 class MainActivity : AppCompatActivity() {
-    val viewModel : MainViewModel by viewModels()
+    private val viewModel : MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -15,16 +15,15 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
-
-    fun viewModelObserver(){
+    private fun viewModelObserver(){
         viewModel.liveFragmentStep.observe(this){ step ->
             if (!isDestroyed){
                 supportFragmentManager.beginTransaction().run {
                     when(step){
-                        MainViewModel.FragmentStep.EDIT -> {}
-                        MainViewModel.FragmentStep.LOG -> {}
+                        MainViewModel.FragmentStep.EDIT -> replace(R.id.fragment_container_view,EditFragment(),"edit_fragment")
+                        MainViewModel.FragmentStep.LOG -> replace(R.id.fragment_container_view,LogListFragment(),"log_list_fragment")
                     }
+                    commitNowAllowingStateLoss()
                 }
             }
         }

@@ -22,5 +22,7 @@
         app:layout_constraintStart_toEndOf="@+id/backButton"
         app:layout_constraintTop_toTopOf="@+id/backButton"
         app:layout_constraintBottom_toBottomOf="@+id/backButton"
+        android:textColor="@color/black"
+        android:textSize="15dp"
         tools:text="기록화면"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,5 +16,14 @@ class EditFragment : BaseFragment<FragmentEditBinding>(FragmentEditBinding::infl
         binding.showLogButton.setOnClickListener {
             viewModel.liveFragmentStep.value = MainViewModel.FragmentStep.LOG
         }
+
+
+        binding.saveButton.setOnClickListener {
+            viewModel.saveLog(binding.editText.text.toString())
+        }
+
+        binding.deleteButton.setOnClickListener {
+            viewModel.deleteLog()
+        }
     }
 }

@@ -33,7 +33,7 @@ class AppRepository (applicationContext : Application){
             logDao.insertAll(log)
         }
     }
-    suspend fun deleteLog(log: Log){
+    suspend fun deleteLog(){
         withContext(Dispatchers.IO){
             logDao.deleteTable()
         }

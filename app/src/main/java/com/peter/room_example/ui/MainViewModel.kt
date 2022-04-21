@@ -1,6 +1,7 @@
 package com.peter.room_example.ui
 
 import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,11 +10,11 @@ import com.peter.room_example.repository.AppRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MainViewModel : ViewModel() {
+class MainViewModel(application: Application): AndroidViewModel(application) {
     enum class FragmentStep {
         EDIT, LOG
     }
-    val appRepository = AppRepository.getInstance(Application())
+    private val appRepository = AppRepository.getInstance(getApplication())
 
     val liveFragmentStep = MutableLiveData(FragmentStep.EDIT)
 

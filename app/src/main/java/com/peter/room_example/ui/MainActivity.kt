@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
 import com.peter.room_example.R
+import com.peter.room_example.ui.loglist.LogListFragment
 
 class MainActivity : AppCompatActivity() {
     private val viewModel : MainViewModel by viewModels()
@@ -21,7 +22,8 @@ class MainActivity : AppCompatActivity() {
                 supportFragmentManager.beginTransaction().run {
                     when(step){
                         MainViewModel.FragmentStep.EDIT -> replace(R.id.fragment_container_view,EditFragment(),"edit_fragment")
-                        MainViewModel.FragmentStep.LOG -> replace(R.id.fragment_container_view,LogListFragment(),"log_list_fragment")
+                        MainViewModel.FragmentStep.LOG -> replace(R.id.fragment_container_view,
+                            LogListFragment(),"log_list_fragment")
                     }
                     commitNowAllowingStateLoss()
                 }

@@ -2,7 +2,7 @@ package com.peter.room_example.ui.loglist
 
 import android.os.Bundle
 import android.view.View
-import android.widget.ListAdapter
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.peter.room_example.databinding.FragmentLogBinding
@@ -15,10 +15,10 @@ class LogListFragment : BaseFragment<FragmentLogBinding>(FragmentLogBinding::inf
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initToolbar(binding.toolbar, "로그 기록", backClickVisible = true, backClick = { viewModel.liveFragmentStep.value =
-            MainViewModel.FragmentStep.EDIT
+        viewModelObserver()
+        initToolbar(binding.toolbar, "로그 기록", backClickVisible = true, backClick = {
+            requireActivity().onBackPressed()
         })
-
 
         binding.recyclerView.apply {
             addItemDecoration(
@@ -27,16 +27,23 @@ class LogListFragment : BaseFragment<FragmentLogBinding>(FragmentLogBinding::inf
                     DividerItemDecoration.VERTICAL
                 )
             )
-
             adapter = LogAdapter(this@LogListFragment)
         }
     }
 
-    override fun onLogItemClick(position: Int) {
 
+    override fun onLogItemClick(log: String) {
+        Toast.makeText(requireContext(), log,Toast.LENGTH_SHORT).show()
     }
 
     override fun onLogItemLongClick(position: Int) {
+        viewModel.deleteLog(position)
+    }
 
+    private fun viewModelObserver(){
+        viewModel.getLog()
+        viewModel.getLogData.observe(viewLifecycleOwner){
+            (binding.recyclerView.adapter as LogAdapter).submitList(it)
+        }
     }
 }

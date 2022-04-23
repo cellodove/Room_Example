@@ -1,7 +1,6 @@
 package com.peter.room_example.repository
 
 import android.app.Application
-import androidx.lifecycle.LiveData
 import com.peter.room_example.data.AppDatabase
 import com.peter.room_example.data.Log
 import com.peter.room_example.data.LogDao
@@ -10,9 +9,11 @@ import kotlinx.coroutines.withContext
 
 class AppRepository (applicationContext : Application){
     private val logDao : LogDao
+    private var context : Application
     init {
         val appDatabase = AppDatabase.getInstance(applicationContext)
         logDao = appDatabase.logDao()
+        this.context = applicationContext
     }
 
     companion object{
@@ -33,9 +34,13 @@ class AppRepository (applicationContext : Application){
             logDao.insertAll(log)
         }
     }
-    suspend fun deleteLog(){
+    suspend fun deleteLog(log: Log){
         withContext(Dispatchers.IO){
-            logDao.deleteTable()
+            logDao.deleteItem(log)
         }
     }
+    fun clearAllTables(){
+        AppDatabase.getInstance(context).clearAllTables()
+    }
+
 }

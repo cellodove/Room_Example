@@ -2,6 +2,7 @@ package com.peter.room_example.ui
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.peter.room_example.databinding.FragmentEditBinding
 import com.peter.room_example.extension.initToolbar
@@ -17,13 +18,18 @@ class EditFragment : BaseFragment<FragmentEditBinding>(FragmentEditBinding::infl
             viewModel.liveFragmentStep.value = MainViewModel.FragmentStep.LOG
         }
 
-
         binding.saveButton.setOnClickListener {
-            viewModel.saveLog(binding.editText.text.toString())
+            if (binding.editText.text.toString().isEmpty()){
+                Toast.makeText(requireContext(),"내용을 입력하세요.",Toast.LENGTH_SHORT).show()
+            }else{
+                viewModel.saveLog(binding.editText.text.toString())
+                Toast.makeText(requireContext(),"저장 완료",Toast.LENGTH_SHORT).show()
+            }
         }
 
         binding.deleteButton.setOnClickListener {
-            viewModel.deleteLog()
+            viewModel.clearAllTables()
         }
     }
+
 }

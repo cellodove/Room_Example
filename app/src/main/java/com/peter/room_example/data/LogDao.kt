@@ -1,9 +1,9 @@
 package com.peter.room_example.data
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-
 
 @Dao
 interface LogDao {
@@ -14,6 +14,6 @@ interface LogDao {
     @Insert
     fun insertAll(vararg logs: Log)
 
-    @Query("DELETE FROM logs")
-    fun deleteTable()
+    @Delete
+    fun deleteItem(log : Log)
 }

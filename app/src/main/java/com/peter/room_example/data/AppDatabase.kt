@@ -16,7 +16,7 @@ abstract class AppDatabase : RoomDatabase() {
                     Room.databaseBuilder(
                         application,
                         AppDatabase::class.java,
-                        "memo-db"
+                        "log-db"
                     ).build()
             }
             return instance

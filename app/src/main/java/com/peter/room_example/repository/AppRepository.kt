@@ -12,10 +12,9 @@ class AppRepository (applicationContext : Application){
     private var context : Application
     init {
         val appDatabase = AppDatabase.getInstance(applicationContext)
-        logDao = appDatabase.logDao()
         this.context = applicationContext
+        logDao = appDatabase.logDao()
     }
-
     companion object{
         private lateinit var instance: AppRepository
 
@@ -42,5 +41,4 @@ class AppRepository (applicationContext : Application){
     fun clearAllTables(){
         AppDatabase.getInstance(context).clearAllTables()
     }
-
 }

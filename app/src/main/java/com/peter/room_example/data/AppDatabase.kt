@@ -11,13 +11,15 @@ abstract class AppDatabase : RoomDatabase() {
         private lateinit var instance: AppDatabase
 
         fun getInstance(application: Application): AppDatabase{
-            if (!::instance.isInitialized){
-                instance =
-                    Room.databaseBuilder(
-                        application,
-                        AppDatabase::class.java,
-                        "log-db"
-                    ).build()
+            synchronized(this){
+                if (!::instance.isInitialized){
+                    instance =
+                        Room.databaseBuilder(
+                            application,
+                            AppDatabase::class.java,
+                            "log-db"
+                        ).build()
+                }
             }
             return instance
         }
